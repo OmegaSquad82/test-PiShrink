@@ -1,0 +1,34 @@
+#!/bin/bash
+set -eou pipefail
+SCRIPTNAME="${0##*/}"
+function error() {
+    echo -n "$SCRIPTNAME: ERROR occured in line $1: "
+    shift
+    echo "$@"
+}
+if (( EUID != 0 )); then
+    error $LINENO "You need to be running as root."
+    exit 253
+fi
+
+MYNAME="${SCRIPTNAME%.*}"
+DATE=$(date -Iseconds | sed 's/:/-/g')
+BASE='2019-09-26-raspbian-buster-lite'
+LOG=$MYNAME-$DATE-$BASE
+{
+    set -x
+
+    options='z za Z Za'
+    for run in $options; do
+        time pishrink -dv"$run" $BASE.img $BASE-"$run".img
+    done
+
+    # override implicit options
+    export PISHRINK_GZIP='-v1'
+    export PISHRINK_XZ='-fv0T0'
+    for run in $options; do
+        time pishrink -dv"$run" $BASE.img $BASE-"$run"-env.img
+    done
+
+    ls -hlt $BASE-*.img.*
+} &> >(tee -a "$LOG".log)
