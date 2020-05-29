@@ -2,7 +2,7 @@
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.5.0
+    rev: v3.1.0
     hooks:
       - id: trailing-whitespace
       - id: mixed-line-ending
@@ -13,12 +13,12 @@ repos:
       - id: check-yaml
 
   - repo: https://github.com/prettier/prettier
-    rev: 1.19.1
+    rev: 2.0.5
     hooks:
       - id: prettier
 
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
-    rev: 1.11.2
+    rev: 2.1.0
     hooks:
       - id: forbid-binary
       - id: script-must-not-have-extension
@@ -26,6 +26,6 @@ repos:
       - id: shfmt
 
   - repo: https://github.com/lovesegfault/beautysh
-    rev: 5.0.2
+    rev: 6.0.1
     hooks:
       - id: beautysh
