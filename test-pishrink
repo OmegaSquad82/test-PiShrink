@@ -30,5 +30,5 @@ LOG=$MYNAME-$DATE-$BASE
         time pishrink -dv"$run" "$BASE".img "$BASE-$run"-env.img
     done
 
-    ls -hlt "$BASE"-*.img.*
+    ls -hltS "$BASE"-*.img.*
 } &> >(tee -a "$LOG".log)
