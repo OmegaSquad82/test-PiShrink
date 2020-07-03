@@ -22,6 +22,7 @@ LOG=$MYNAME-$DATE-$BASE
     options='z za Z Za'
     for run in $options; do
         time pishrink.sh -dv"$run" "$BASE".img "$BASE-$run".img
+        mv pishrink.log "$BASE-$run".log
     done
 
     # override implicit options
@@ -29,6 +30,7 @@ LOG=$MYNAME-$DATE-$BASE
     export PISHRINK_XZ='-fv0T0'
     for run in $options; do
         time pishrink.sh -dv"$run" "$BASE".img "$BASE-$run"-env.img
+        mv pishrink.log "$BASE-$run".log
     done
 
     ls -hltS "$BASE"-*.img.*
