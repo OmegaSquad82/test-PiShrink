@@ -6,4 +6,4 @@ Currently it takes no options, I've took a few lines from pishrink.sh itself to 
 
 ## usage
 
-`sudo test-pishrink`
+`sudo ./test-pishrink`

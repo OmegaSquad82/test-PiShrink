@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+FILE="${0#./fetch-}"
+FILE="${FILE%.sh}"
+URL="https://downloads.raspberrypi.org/$FILE"
+echo "Fetching latest from $URL"
+unzip -u "$(curl -sLO "$URL" -C - -w '%{filename_effective}')"

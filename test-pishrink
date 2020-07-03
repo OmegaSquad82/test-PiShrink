@@ -13,21 +13,22 @@ fi
 
 MYNAME="${SCRIPTNAME%.*}"
 DATE=$(date -Iseconds | sed 's/:/-/g')
-BASE="${1%%.img}"
+IMG="${1:-2020-05-27-raspios-buster-lite-armhf.img}"
+BASE="${IMG%%.img}"
 LOG=$MYNAME-$DATE-$BASE
 {
     set -x
 
     options='z za Z Za'
     for run in $options; do
-        time pishrink -dv"$run" "$BASE".img "$BASE-$run".img
+        time pishrink.sh -dv"$run" "$BASE".img "$BASE-$run".img
     done
 
     # override implicit options
     export PISHRINK_GZIP='-v1'
     export PISHRINK_XZ='-fv0T0'
     for run in $options; do
-        time pishrink -dv"$run" "$BASE".img "$BASE-$run"-env.img
+        time pishrink.sh -dv"$run" "$BASE".img "$BASE-$run"-env.img
     done
 
     ls -hltS "$BASE"-*.img.*
