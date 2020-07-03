@@ -32,4 +32,5 @@ LOG=$MYNAME-$DATE-$BASE
     done
 
     ls -hltS "$BASE"-*.img.*
+    uname -a
 } &> >(tee -a "$LOG".log)
