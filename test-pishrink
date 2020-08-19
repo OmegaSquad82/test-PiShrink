@@ -2,13 +2,13 @@
 set -eou pipefail
 SCRIPTNAME="${0##*/}"
 function error() {
-    echo -n "$SCRIPTNAME: ERROR occured in line $1: "
-    shift
-    echo "$@"
+	echo -n "$SCRIPTNAME: ERROR occured in line $1: "
+	shift
+	echo "$@"
 }
 if ((EUID != 0)); then
-    error $LINENO "You need to be running as root."
-    exit 253
+	error $LINENO "You need to be running as root."
+	exit 253
 fi
 
 MYNAME="${SCRIPTNAME%.*}"
@@ -17,24 +17,27 @@ IMG="${1:-2020-05-27-raspios-buster-lite-armhf.img}"
 BASE="${IMG%%.img}"
 LOG=$MYNAME-$DATE-$BASE
 STATS=$LOG-stats.log
+OPT='d'
 export TIME="\ncommand: %C\nexit status %x, time measured: %Uuser %Ssystem %Eelapsed %PCPU"
 {
-    echo "Running $LOG with $(pishrink.sh | head -n 1)" | tee "$STATS"
-    echo "on $(uname -a)" | tee -a "$STATS"
+	echo "Running $LOG with $(pishrink.sh | head -n 1)" | tee "$STATS"
+	echo "on $(uname -a)" | tee -a "$STATS"
 
-    options='z za Z Za'
-    for run in $options; do
-        env time -ao "$STATS" pishrink.sh -dv"$run" "$BASE".img "$BASE-$run".img
-        mv pishrink.log "$BASE-$run".log
-    done
+	options='z za Z Za'
+	for run in $options; do
+		env time -ao "$STATS" pishrink.sh -"$OPT$run" "$BASE".img "$BASE-$run".img
+		[[ -f pishrink.log ]] && grep 'Shrunk' pishrink.log >>"$STATS" && mv pishrink.log "$BASE-$run".log
+	done
 
-    # override implicit options
-    export PISHRINK_GZIP='-v1'
-    export PISHRINK_XZ='-fv0T0'
-    for run in $options; do
-        env time -ao "$STATS" pishrink.sh -dv"$run" "$BASE".img "$BASE-$run"-env.img
-        mv pishrink.log "$BASE-$run".log
-    done
+	# override implicit options
+	export PISHRINK_GZIP='-v1'
+	export PISHRINK_XZ='-fv0T0'
+	for run in $options; do
+		env time -ao "$STATS" pishrink.sh -"$OPT$run" "$BASE".img "$BASE-$run"-env.img
+		[[ -f pishrink.log ]] && grep 'Shrunk' pishrink.log >>"$STATS" && mv pishrink.log "$BASE-$run".log
+	done
 
-    ls -hltS "$BASE"-*.img.* | tee -a "$STATS"
+	echo '
+Image and archives:
+    '"$(ls -hltS "$BASE"-*.img.*)" | tee -a "$STATS"
 } &> >(tee -a "$LOG".log)

@@ -24,8 +24,3 @@ repos:
       - id: script-must-not-have-extension
       - id: shellcheck
       - id: shfmt
-
-  - repo: https://github.com/lovesegfault/beautysh
-    rev: 6.0.1
-    hooks:
-      - id: beautysh
