@@ -16,12 +16,15 @@ DATE=$(date -Iseconds | sed 's/:/-/g')
 IMG="${1:-2020-05-27-raspios-buster-lite-armhf.img}"
 BASE="${IMG%%.img}"
 LOG=$MYNAME-$DATE-$BASE
+STATS=$LOG-stats.log
+export TIME="%C\n%Uuser %Ssystem %Eelapsed %PCPU Status %x"
 {
-    set -x
+    echo "Running $LOG with $(pishrink.sh | head -n 1)" | tee $STATS
+    echo "on $(uname -a)" | tee -a $STATS
 
     options='z za Z Za'
     for run in $options; do
-        time pishrink.sh -dv"$run" "$BASE".img "$BASE-$run".img
+        env time -ao $STATS pishrink.sh -dv"$run" "$BASE".img "$BASE-$run".img
         mv pishrink.log "$BASE-$run".log
     done
 
@@ -29,10 +32,9 @@ LOG=$MYNAME-$DATE-$BASE
     export PISHRINK_GZIP='-v1'
     export PISHRINK_XZ='-fv0T0'
     for run in $options; do
-        time pishrink.sh -dv"$run" "$BASE".img "$BASE-$run"-env.img
+        env time -ao $STATS pishrink.sh -dv"$run" "$BASE".img "$BASE-$run"-env.img
         mv pishrink.log "$BASE-$run".log
     done
 
-    ls -hltS "$BASE"-*.img.*
-    uname -a
+    ls -hltS "$BASE"-*.img.* | tee -a $STATS
 } &> >(tee -a "$LOG".log)
