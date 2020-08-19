@@ -6,7 +6,7 @@ function error() {
     shift
     echo "$@"
 }
-if (( EUID != 0 )); then
+if ((EUID != 0)); then
     error $LINENO "You need to be running as root."
     exit 253
 fi
@@ -17,14 +17,14 @@ IMG="${1:-2020-05-27-raspios-buster-lite-armhf.img}"
 BASE="${IMG%%.img}"
 LOG=$MYNAME-$DATE-$BASE
 STATS=$LOG-stats.log
-export TIME="%C\n%Uuser %Ssystem %Eelapsed %PCPU Status %x"
+export TIME="\ncommand: %C\nexit status %x, time measured: %Uuser %Ssystem %Eelapsed %PCPU"
 {
-    echo "Running $LOG with $(pishrink.sh | head -n 1)" | tee $STATS
-    echo "on $(uname -a)" | tee -a $STATS
+    echo "Running $LOG with $(pishrink.sh | head -n 1)" | tee "$STATS"
+    echo "on $(uname -a)" | tee -a "$STATS"
 
     options='z za Z Za'
     for run in $options; do
-        env time -ao $STATS pishrink.sh -dv"$run" "$BASE".img "$BASE-$run".img
+        env time -ao "$STATS" pishrink.sh -dv"$run" "$BASE".img "$BASE-$run".img
         mv pishrink.log "$BASE-$run".log
     done
 
@@ -32,9 +32,9 @@ export TIME="%C\n%Uuser %Ssystem %Eelapsed %PCPU Status %x"
     export PISHRINK_GZIP='-v1'
     export PISHRINK_XZ='-fv0T0'
     for run in $options; do
-        env time -ao $STATS pishrink.sh -dv"$run" "$BASE".img "$BASE-$run"-env.img
+        env time -ao "$STATS" pishrink.sh -dv"$run" "$BASE".img "$BASE-$run"-env.img
         mv pishrink.log "$BASE-$run".log
     done
 
-    ls -hltS "$BASE"-*.img.* | tee -a $STATS
+    ls -hltS "$BASE"-*.img.* | tee -a "$STATS"
 } &> >(tee -a "$LOG".log)
