@@ -22,7 +22,7 @@ export TIME="\ncommand: %C\nexit status %x, time measured: %Uuser %Ssystem %Eela
 {
 	echo "Running $LOG with $(pishrink.sh | head -n 1) on $(lsb_release -ds) @ $(uname -srvm)" | tee -a "$STATS"
 
-	options='z za Z Za' # 'zc z zC zac za zaC Zac Za ZaC Zaec Zae ZaeC' when https://github.com/Drewsif/PiShrink/pull/154 merged
+	options='zc z zC zac za zaC Zac Za ZaC Zaec Zae ZaeC' # if https://github.com/Drewsif/PiShrink/pull/154 merged
 	for run in $options; do
 		env time -ao "$STATS" pishrink.sh -"$OPT$run" "$BASE".img "$BASE-$run".img
 		[[ -f pishrink.log ]] && grep 'Shrunk' pishrink.log >>"$STATS" && mv pishrink.log "$BASE-$run".log
