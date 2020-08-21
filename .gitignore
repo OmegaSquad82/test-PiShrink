@@ -1,3 +1,4 @@
-*.img
-*.log
+*\.img\.*
+*\.log
+*\.out
 *raspios*
