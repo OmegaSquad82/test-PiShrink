@@ -16,14 +16,13 @@ DATE=$(date -Iseconds | sed 's/:/-/g')
 IMG="${1:-2020-05-27-raspios-buster-lite-armhf.img}"
 BASE="${IMG%%.img}"
 LOG=$MYNAME-$DATE-$BASE
-STATS=$LOG-stats.log
+STATS=$LOG-results.txt
 OPT='d'
 export TIME="\ncommand: %C\nexit status %x, time measured: %Uuser %Ssystem %Eelapsed %PCPU"
 {
-	echo "Running $LOG with $(pishrink.sh | head -n 1)" | tee "$STATS"
-	echo "on $(uname -a)" | tee -a "$STATS"
+	echo "Running $LOG with $(pishrink.sh | head -n 1) on $(lsb_release -ds) @ $(uname -srvm)" | tee -a "$STATS"
 
-	options='z za Z Za'
+	options='z za Z Za' # 'zc z zC zac za zaC Zac Za ZaC Zaec Zae ZaeC' when https://github.com/Drewsif/PiShrink/pull/154 merged
 	for run in $options; do
 		env time -ao "$STATS" pishrink.sh -"$OPT$run" "$BASE".img "$BASE-$run".img
 		[[ -f pishrink.log ]] && grep 'Shrunk' pishrink.log >>"$STATS" && mv pishrink.log "$BASE-$run".log
@@ -32,12 +31,12 @@ export TIME="\ncommand: %C\nexit status %x, time measured: %Uuser %Ssystem %Eela
 	# override implicit options
 	export PISHRINK_GZIP='-v1'
 	export PISHRINK_XZ='-fv0T0'
-	for run in $options; do
+	for run in 'z' 'Z'; do
 		env time -ao "$STATS" pishrink.sh -"$OPT$run" "$BASE".img "$BASE-$run"-env.img
-		[[ -f pishrink.log ]] && grep 'Shrunk' pishrink.log >>"$STATS" && mv pishrink.log "$BASE-$run".log
+		[[ -f pishrink.log ]] && grep 'Shrunk' pishrink.log >>"$STATS" && mv pishrink.log "$BASE-$run"-env.log
 	done
 
 	echo '
-Image and archives:
+Image archives:
     '"$(ls -hltS "$BASE"-*.img.*)" | tee -a "$STATS"
 } &> >(tee -a "$LOG".log)
