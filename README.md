@@ -19,4 +19,8 @@ Currently it doesn't need any command line parameters. You can provide the image
 
 ## results
 
-There is an initial [Raspberry Pi 4B 8GB running Ubuntu 20.04 Focal Fossa on aarch64](results/rpi4b8gb-ubuntufocal-arm64.md) resultset provided for reference.
+There are resultsets provided for reference:
+
+- [Raspberry Pi 4B 4GB running Raspbian Lite on armv7l](results/rpi4b4gb-raspbian-armhf.md)
+- [Raspberry Pi 4B 4GB running RasPiOS Full on aarch64](results/rpi4b4gb-raspios-arm64.md)
+- [Raspberry Pi 4B 8GB running Ubuntu 20.04 Focal Fossa on aarch64](results/rpi4b8gb-ubuntufocal-arm64.md)
