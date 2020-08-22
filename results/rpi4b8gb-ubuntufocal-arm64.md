@@ -6,7 +6,10 @@
 ## sysinfo
 
 - Distribution: Ubuntu 20.04.1 LTS
-- Kernel: Linux - Release: 5.4.0-1016-raspi - Version: #17-Ubuntu SMP Wed Aug 19 14:54:44 UTC 2020 - Machine: aarch64
+- Kernel: Linux
+- Release: 5.4.0-1016-raspi
+- Version: #17-Ubuntu SMP Wed Aug 19 14:54:44 UTC 2020
+- Machine: aarch64
 
 ## test-pishrink
 

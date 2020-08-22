@@ -30,9 +30,9 @@ export TIME="\n#### %C\n\n- time measured: %Uuser %Ssystem %Eelapsed %PCPU"
 
 - Distribution: $(lsb_release -ds)
 - Kernel: $(uname -s)
-	- Release: $(uname -r)
-	- Version: $(uname -v)
-	- Machine: $(uname -m)
+- Release: $(uname -r)
+- Version: $(uname -v)
+- Machine: $(uname -m)
 
 ## $SCRIPTNAME
 

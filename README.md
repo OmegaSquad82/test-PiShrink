@@ -12,4 +12,4 @@ Currently it doesn't need any command line parameters. You can provide the image
 
 ## results
 
-There is a [RESULTS.md](RESULTS.md) file provided for reference created with my Raspberry Pi 4B 8GB running Ubuntu 20.04 LTS Focal Fossa.
+There is an initial [Raspberry Pi 4B 8GB running Ubuntu 20.04 Focal Fossa on aarch64](results/rpi4b8gb-ubuntufocal-arm64.md) resultset provided for reference.
