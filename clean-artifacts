@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-rm -f -- *.gz *.xz *.log
+rm -f -- *.gz *.xz *.log nohup.out
