@@ -1,105 +1,154 @@
 # test results
 
-- Started: 2020-08-22T03:15:29+02:00
-- Version: pishrink.sh v0.1.2.2
+- Started: 2020-08-25T14:48:20+02:00
+- Version: pishrink.sh v0.1.2
 
 ## sysinfo
 
 - Distribution: Ubuntu 20.04.1 LTS
-- Kernel: Linux
-- Release: 5.4.0-1016-raspi
+- Kernel: Linux 5.4.0-1016-raspi aarch64
 - Version: #17-Ubuntu SMP Wed Aug 19 14:54:44 UTC 2020
-- Machine: aarch64
+- Machine: Broadcom Inc. and subsidiaries Device 2711 (rev 10)
+- Memory:
+  total used free shared buffers cache available
+  Mem: 7,6Gi 1,7Gi 3,6Gi 36Mi 12Mi 2,4Gi 5,8Gi
+  Swap: 0B 0B 0B
 
 ## test-pishrink
 
 ### executions
 
-#### pishrink.sh -dzc 2020-05-27-raspios-buster-lite-armhf.img 2020-05-27-raspios-buster-lite-armhf-zc.img
+#### pishrink.sh -dz 2020-08-20-raspios-buster-armhf-lite.img 2020-08-20-raspios-buster-armhf-lite-z-flag.img
 
-- time measured: 71.30user 10.63system 1:25.10elapsed 96%CPU
-- pishrink.sh: Shrunk 2020-05-27-raspios-buster-lite-armhf-zc.img.gz from 1,8G to 472M ratio 26,65% ...
+- time measured: real 3m11,387s user 2m58,001s sys 0m10,807s CPU 98,65%
+- pishrink.sh: Shrunk 2020-08-20-raspios-buster-armhf-lite-z-flag.img.gz from 1,8G to 435M ...
+- Compression ratio: 24,66%
 
-#### pishrink.sh -dz 2020-05-27-raspios-buster-lite-armhf.img 2020-05-27-raspios-buster-lite-armhf-z.img
+#### pishrink.sh -dza 2020-08-20-raspios-buster-armhf-lite.img 2020-08-20-raspios-buster-armhf-lite-za-flag.img
 
-- time measured: 178.41user 10.98system 3:12.18elapsed 98%CPU
-- pishrink.sh: Shrunk 2020-05-27-raspios-buster-lite-armhf-z.img.gz from 1,8G to 434M ratio 24,54% ...
+- time measured: real 1m1,855s user 3m9,142s sys 0m14,923s CPU 329,93%
+- pishrink.sh: Shrunk 2020-08-20-raspios-buster-armhf-lite-za-flag.img.gz from 1,8G to 434M ...
+- Compression ratio: 24,62%
 
-#### pishrink.sh -dzC 2020-05-27-raspios-buster-lite-armhf.img 2020-05-27-raspios-buster-lite-armhf-zC.img
+#### pishrink.sh -dZ 2020-08-20-raspios-buster-armhf-lite.img 2020-08-20-raspios-buster-armhf-lite-Z-flag.img
 
-- time measured: 487.47user 10.88system 8:21.83elapsed 99%CPU
-- pishrink.sh: Shrunk 2020-05-27-raspios-buster-lite-armhf-zC.img.gz from 1,8G to 432M ratio 24,42% ...
+- time measured: real 24m52,916s user 24m33,604s sys 0m13,627s CPU 99,62%
+- pishrink.sh: Shrunk 2020-08-20-raspios-buster-armhf-lite-Z-flag.img.xz from 1,8G to 297M ...
+- Compression ratio: 16,82%
 
-#### pishrink.sh -dzac 2020-05-27-raspios-buster-lite-armhf.img 2020-05-27-raspios-buster-lite-armhf-zac.img
+#### pishrink.sh -dZa 2020-08-20-raspios-buster-armhf-lite.img 2020-08-20-raspios-buster-armhf-lite-Za-flag.img
 
-- time measured: 68.61user 14.97system 0:30.38elapsed 275%CPU
-- pishrink.sh: Shrunk 2020-05-27-raspios-buster-lite-armhf-zac.img.gz from 1,8G to 470M ratio 26,54% ...
+- time measured: real 8m58,706s user 32m20,836s sys 0m13,107s CPU 362,71%
+- pishrink.sh: Shrunk 2020-08-20-raspios-buster-armhf-lite-Za-flag.img.xz from 1,8G to 301M ...
+- Compression ratio: 17,09%
 
-#### pishrink.sh -dza 2020-05-27-raspios-buster-lite-armhf.img 2020-05-27-raspios-buster-lite-armhf-za.img
+#### pishrink.sh -dzc 2020-08-20-raspios-buster-armhf-lite.img 2020-08-20-raspios-buster-armhf-lite-zc-pr154.img
 
-- time measured: 187.78user 14.89system 1:01.23elapsed 330%CPU
-- pishrink.sh: Shrunk 2020-05-27-raspios-buster-lite-armhf-za.img.gz from 1,8G to 434M ratio 24,51% ...
+- time measured: real 1m24,762s user 1m11,344s sys 0m10,777s CPU 96,88%
+- pishrink.sh: Shrunk 2020-08-20-raspios-buster-armhf-lite-zc-pr154.img.gz from 1,8G to 471M ...
+- Compression ratio: 26,75%
 
-#### pishrink.sh -dzaC 2020-05-27-raspios-buster-lite-armhf.img 2020-05-27-raspios-buster-lite-armhf-zaC.img
+#### pishrink.sh -dzC 2020-08-20-raspios-buster-armhf-lite.img 2020-08-20-raspios-buster-armhf-lite-zC-pr154.img
 
-- time measured: 507.73user 14.70system 2:24.70elapsed 361%CPU
-- pishrink.sh: Shrunk 2020-05-27-raspios-buster-lite-armhf-zaC.img.gz from 1,8G to 432M ratio 24,39% ...
+- time measured: real 8m14,270s user 8m0,582s sys 0m10,763s CPU 99,41%
+- pishrink.sh: Shrunk 2020-08-20-raspios-buster-armhf-lite-zC-pr154.img.gz from 1,8G to 432M ...
+- Compression ratio: 24,54%
 
-#### pishrink.sh -dZac 2020-05-27-raspios-buster-lite-armhf.img 2020-05-27-raspios-buster-lite-armhf-Zac.img
+#### pishrink.sh -dzac 2020-08-20-raspios-buster-armhf-lite.img 2020-08-20-raspios-buster-armhf-lite-zac-pr154.img
 
-- time measured: 355.57user 12.02system 1:44.91elapsed 350%CPU
-- pishrink.sh: Shrunk 2020-05-27-raspios-buster-lite-armhf-Zac.img.xz from 1,8G to 373M ratio 21,05% ...
+- time measured: real 0m30,221s user 1m6,907s sys 0m14,959s CPU 270,89%
+- pishrink.sh: Shrunk 2020-08-20-raspios-buster-armhf-lite-zac-pr154.img.gz from 1,8G to 469M ...
+- Compression ratio: 26,64%
 
-#### pishrink.sh -dZa 2020-05-27-raspios-buster-lite-armhf.img 2020-05-27-raspios-buster-lite-armhf-Za.img
+#### pishrink.sh -dzaC 2020-08-20-raspios-buster-armhf-lite.img 2020-08-20-raspios-buster-armhf-lite-zaC-pr154.img
 
-- time measured: 1979.12user 13.00system 9:01.69elapsed 367%CPU
-- pishrink.sh: Shrunk 2020-05-27-raspios-buster-lite-armhf-Za.img.xz from 1,8G to 301M ratio 16,99% ...
+- time measured: real 2m27,696s user 8m24,028s sys 0m15,778s CPU 351,95%
+- pishrink.sh: Shrunk 2020-08-20-raspios-buster-armhf-lite-zaC-pr154.img.gz from 1,8G to 432M ...
+- Compression ratio: 24,51%
 
-#### pishrink.sh -dZaC 2020-05-27-raspios-buster-lite-armhf.img 2020-05-27-raspios-buster-lite-armhf-ZaC.img
+#### pishrink.sh -dZc 2020-08-20-raspios-buster-armhf-lite.img 2020-08-20-raspios-buster-armhf-lite-Zc-pr154.img
 
-- time measured: 2284.61user 19.03system 11:24.59elapsed 336%CPU
-- pishrink.sh: Shrunk 2020-05-27-raspios-buster-lite-armhf-ZaC.img.xz from 1,8G to 273M ratio 15,42% ...
+- time measured: real 4m29,897s user 4m14,420s sys 0m12,335s CPU 98,83%
+- pishrink.sh: Shrunk 2020-08-20-raspios-buster-armhf-lite-Zc-pr154.img.xz from 1,8G to 371M ...
+- Compression ratio: 21,04%
 
-#### pishrink.sh -dZaec 2020-05-27-raspios-buster-lite-armhf.img 2020-05-27-raspios-buster-lite-armhf-Zaec.img
+#### pishrink.sh -dZC 2020-08-20-raspios-buster-armhf-lite.img 2020-08-20-raspios-buster-armhf-lite-ZC-pr154.img
 
-- time measured: 2000.77user 12.04system 8:51.55elapsed 378%CPU
-- pishrink.sh: Shrunk 2020-05-27-raspios-buster-lite-armhf-Zaec.img.xz from 1,8G to 341M ratio 19,26% ...
+- time measured: real 29m51,311s user 29m29,911s sys 0m14,892s CPU 99,63%
+- pishrink.sh: Shrunk 2020-08-20-raspios-buster-armhf-lite-ZC-pr154.img.xz from 1,8G to 269M ...
+- Compression ratio: 15,26%
 
-#### pishrink.sh -dZae 2020-05-27-raspios-buster-lite-armhf.img 2020-05-27-raspios-buster-lite-armhf-Zae.img
+#### pishrink.sh -dZac 2020-08-20-raspios-buster-armhf-lite.img 2020-08-20-raspios-buster-armhf-lite-Zac-pr154.img
 
-- time measured: 2688.12user 12.72system 11:55.20elapsed 377%CPU
-- pishrink.sh: Shrunk 2020-05-27-raspios-buster-lite-armhf-Zae.img.xz from 1,8G to 300M ratio 16,97% ...
+- time measured: real 1m44,584s user 5m54,597s sys 0m12,546s CPU 351,06%
+- pishrink.sh: Shrunk 2020-08-20-raspios-buster-armhf-lite-Zac-pr154.img.xz from 1,8G to 373M ...
+- Compression ratio: 21,18%
 
-#### pishrink.sh -dZaeC 2020-05-27-raspios-buster-lite-armhf.img 2020-05-27-raspios-buster-lite-armhf-ZaeC.img
+#### pishrink.sh -dZaC 2020-08-20-raspios-buster-armhf-lite.img 2020-08-20-raspios-buster-armhf-lite-ZaC-pr154.img
 
-- time measured: 3193.39user 19.70system 15:14.61elapsed 351%CPU
-- pishrink.sh: Shrunk 2020-05-27-raspios-buster-lite-armhf-ZaeC.img.xz from 1,8G to 272M ratio 15,38% ...
+- time measured: real 11m54,294s user 38m22,666s sys 0m22,197s CPU 325,51%
+- pishrink.sh: Shrunk 2020-08-20-raspios-buster-armhf-lite-ZaC-pr154.img.xz from 1,8G to 276M ...
+- Compression ratio: 15,66%
 
-#### pishrink.sh -dz 2020-05-27-raspios-buster-lite-armhf.img 2020-05-27-raspios-buster-lite-armhf-z-env.img
+#### pishrink.sh -dZec 2020-08-20-raspios-buster-armhf-lite.img 2020-08-20-raspios-buster-armhf-lite-Zec-pr154.img
 
-- time measured: 71.59user 10.52system 1:24.80elapsed 96%CPU
-- pishrink.sh: Shrunk 2020-05-27-raspios-buster-lite-armhf-z-env.img.gz from 1,8G to 472M ratio 26,65% ...
+- time measured: real 28m34,308s user 28m9,445s sys 0m16,838s CPU 99,53%
+- pishrink.sh: Shrunk 2020-08-20-raspios-buster-armhf-lite-Zec-pr154.img.xz from 1,8G to 338M ...
+- Compression ratio: 19,18%
 
-#### pishrink.sh -dZ 2020-05-27-raspios-buster-lite-armhf.img 2020-05-27-raspios-buster-lite-armhf-Z-env.img
+#### pishrink.sh -dZeC 2020-08-20-raspios-buster-armhf-lite.img 2020-08-20-raspios-buster-armhf-lite-ZeC-pr154.img
 
-- time measured: 354.68user 12.54system 1:44.61elapsed 351%CPU
-- pishrink.sh: Shrunk 2020-05-27-raspios-buster-lite-armhf-Z-env.img.xz from 1,8G to 373M ratio 21,05% ...
+- time measured: real 45m37,939s user 45m14,245s sys 0m15,848s CPU 99,71%
+- pishrink.sh: Shrunk 2020-08-20-raspios-buster-armhf-lite-ZeC-pr154.img.xz from 1,8G to 268M ...
+- Compression ratio: 15,22%
+
+#### pishrink.sh -dZeac 2020-08-20-raspios-buster-armhf-lite.img 2020-08-20-raspios-buster-armhf-lite-Zeac-pr154.img
+
+- time measured: real 10m15,287s user 32m57,301s sys 0m13,569s CPU 323,61%
+- pishrink.sh: Shrunk 2020-08-20-raspios-buster-armhf-lite-Zeac-pr154.img.xz from 1,8G to 342M ...
+- Compression ratio: 19,39%
+
+#### pishrink.sh -dZeaC 2020-08-20-raspios-buster-armhf-lite.img 2020-08-20-raspios-buster-armhf-lite-ZeaC-pr154.img
+
+- time measured: real 17m17,854s user 53m3,139s sys 0m21,804s CPU 308,82%
+- pishrink.sh: Shrunk 2020-08-20-raspios-buster-armhf-lite-ZeaC-pr154.img.xz from 1,8G to 276M ...
+- Compression ratio: 15,63%
+
+#### pishrink.sh -dz 2020-08-20-raspios-buster-armhf-lite.img 2020-08-20-raspios-buster-armhf-lite-z-env.img
+
+2020-08-20-raspios-buster-armhf-lite-z-env.img: 72.0% -- replaced with 2020-08-20-raspios-buster-armhf-lite-z-env.img.gz
+
+- time measured: real 1m27,995s user 1m12,118s sys 0m12,309s CPU 95,94%
+- pishrink.sh: Shrunk 2020-08-20-raspios-buster-armhf-lite-z-env.img.gz from 1,8G to 471M ...
+- Compression ratio: 26,75%
+
+#### pishrink.sh -dZ 2020-08-20-raspios-buster-armhf-lite.img 2020-08-20-raspios-buster-armhf-lite-Z-env.img
+
+2020-08-20-raspios-buster-armhf-lite-Z-env.img: 372,8 MiB / 1.683,7 MiB = 0,221, 16 MiB/s, 1:47
+
+- time measured: real 1m57,187s user 5m52,141s sys 0m12,299s CPU 311,00%
+- pishrink.sh: Shrunk 2020-08-20-raspios-buster-armhf-lite-Z-env.img.xz from 1,8G to 373M ...
+- Compression ratio: 21,18%
 
 ### archives by size:
 
 ```bash
--rw-r--r-- 1 ubuntu ubuntu 472M Aug 22 03:15 2020-05-27-raspios-buster-lite-armhf-zc.img.gz
--rw-r--r-- 1 ubuntu ubuntu 472M Aug 22 04:30 2020-05-27-raspios-buster-lite-armhf-z-env.img.gz
--rw-r--r-- 1 ubuntu ubuntu 470M Aug 22 03:28 2020-05-27-raspios-buster-lite-armhf-zac.img.gz
--rw-r--r-- 1 ubuntu ubuntu 434M Aug 22 03:17 2020-05-27-raspios-buster-lite-armhf-z.img.gz
--rw-r--r-- 1 ubuntu ubuntu 434M Aug 22 03:29 2020-05-27-raspios-buster-lite-armhf-za.img.gz
--rw-r--r-- 1 ubuntu ubuntu 432M Aug 22 03:20 2020-05-27-raspios-buster-lite-armhf-zC.img.gz
--rw-r--r-- 1 ubuntu ubuntu 432M Aug 22 03:30 2020-05-27-raspios-buster-lite-armhf-zaC.img.gz
--rw-r--r-- 1 ubuntu ubuntu 373M Aug 22 04:32 2020-05-27-raspios-buster-lite-armhf-Z-env.img.xz
--rw-r--r-- 1 ubuntu ubuntu 373M Aug 22 03:32 2020-05-27-raspios-buster-lite-armhf-Zac.img.xz
--rw-r--r-- 1 ubuntu ubuntu 341M Aug 22 03:54 2020-05-27-raspios-buster-lite-armhf-Zaec.img.xz
--rw-r--r-- 1 ubuntu ubuntu 301M Aug 22 03:34 2020-05-27-raspios-buster-lite-armhf-Za.img.xz
--rw-r--r-- 1 ubuntu ubuntu 300M Aug 22 04:03 2020-05-27-raspios-buster-lite-armhf-Zae.img.xz
--rw-r--r-- 1 ubuntu ubuntu 273M Aug 22 03:43 2020-05-27-raspios-buster-lite-armhf-ZaC.img.xz
--rw-r--r-- 1 ubuntu ubuntu 272M Aug 22 04:15 2020-05-27-raspios-buster-lite-armhf-ZaeC.img.xz
+-rw-r--r-- 1 root root 471M Aug 25 18:09 2020-08-20-raspios-buster-armhf-lite-z-env.img.gz
+-rw-r--r-- 1 root root 471M Aug 25 15:26 2020-08-20-raspios-buster-armhf-lite-zc-pr154.img.gz
+-rw-r--r-- 1 root root 469M Aug 25 15:36 2020-08-20-raspios-buster-armhf-lite-zac-pr154.img.gz
+-rw-r--r-- 1 root root 435M Aug 25 14:48 2020-08-20-raspios-buster-armhf-lite-z-flag.img.gz
+-rw-r--r-- 1 root root 434M Aug 25 14:51 2020-08-20-raspios-buster-armhf-lite-za-flag.img.gz
+-rw-r--r-- 1 root root 432M Aug 25 15:28 2020-08-20-raspios-buster-armhf-lite-zC-pr154.img.gz
+-rw-r--r-- 1 root root 432M Aug 25 15:36 2020-08-20-raspios-buster-armhf-lite-zaC-pr154.img.gz
+-rw-r--r-- 1 root root 373M Aug 25 18:10 2020-08-20-raspios-buster-armhf-lite-Z-env.img.xz
+-rw-r--r-- 1 root root 373M Aug 25 16:13 2020-08-20-raspios-buster-armhf-lite-Zac-pr154.img.xz
+-rw-r--r-- 1 root root 371M Aug 25 15:39 2020-08-20-raspios-buster-armhf-lite-Zc-pr154.img.xz
+-rw-r--r-- 1 root root 342M Aug 25 17:41 2020-08-20-raspios-buster-armhf-lite-Zeac-pr154.img.xz
+-rw-r--r-- 1 root root 338M Aug 25 16:27 2020-08-20-raspios-buster-armhf-lite-Zec-pr154.img.xz
+-rw-r--r-- 1 root root 301M Aug 25 15:17 2020-08-20-raspios-buster-armhf-lite-Za-flag.img.xz
+-rw-r--r-- 1 root root 297M Aug 25 14:52 2020-08-20-raspios-buster-armhf-lite-Z-flag.img.xz
+-rw-r--r-- 1 root root 276M Aug 25 16:15 2020-08-20-raspios-buster-armhf-lite-ZaC-pr154.img.xz
+-rw-r--r-- 1 root root 276M Aug 25 17:51 2020-08-20-raspios-buster-armhf-lite-ZeaC-pr154.img.xz
+-rw-r--r-- 1 root root 269M Aug 25 15:43 2020-08-20-raspios-buster-armhf-lite-ZC-pr154.img.xz
+-rw-r--r-- 1 root root 268M Aug 25 16:55 2020-08-20-raspios-buster-armhf-lite-ZeC-pr154.img.xz
 ```

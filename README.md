@@ -6,18 +6,14 @@ Currently it doesn't need any command line parameters. You can provide the image
 
 ## requirements
 
-- `bash` (approximately v4 or newer)
-- `curl` (must support `filename_effective`)
-- `pishrink.sh` of either `master` or PR#154 commit `4e90956eb1cd60f7e0ed33756d01d4d637c9b01c`
+- `pishrink.sh` e.g. `master` or PR#154 commit `4e90956eb1cd60f7e0ed33756d01d4d637c9b01c`
 
-## PiShrink versions supported
-
-While the former supports the flags `-azZ` and environment variables resulting in 4 + 2 permutations of compression options the latter carries three more flags `-cCe` resulting in 15 + 2 permutations. An Utility to download an install PiShrink to the system is also provided.
+While the former already supports the flags `-azZ` and environment variables resulting in 4 + 2 permutations of compression options the latter carries three more flags `-cC` and `-Ze` resulting in 16 + 2 permutations. An Utility to download directly from Github and install Drewsif/PiShrink into the system is also being provided.
 
 ## usage
 
 - `sudo ./install-pishrink <treeish> <target>` # installs 'master' into '/usr/local/bin/'
-- `sudo ./test-pishrink <image>` # downloads and extracts 'raspios_lite_armhf_latest'
+- `sudo ./test-pishrink <image>` # fetches 'raspios_lite_armhf_latest' and runs the tests
 
 ## results
 
