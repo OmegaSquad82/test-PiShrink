@@ -1,4 +1,6 @@
-*\.img\.*
+*\.img*
 *\.log
 *\.out
-*raspios*
+pishrink.sh*
+*-results.md
+raspios_lite_armhf_latest

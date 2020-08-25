@@ -5,4 +5,5 @@ URL="https://downloads.raspberrypi.org/$FILE"
 echo "Fetching latest from $URL"
 LOADED=$(curl -sLO "$URL" -C - -w '%{filename_effective}')
 sha256sum "$LOADED"
-unzip -u "$LOADED"
+unzip -qu "$LOADED"
+zipinfo -1 "$LOADED"

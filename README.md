@@ -2,20 +2,22 @@
 
 Small script to test additional compression options by @framps and @nhkhai for the great [PiShrink](https://github.com/Drewsif/PiShrink).
 
-Currently it doesn't need any command line parameters. You can provide the image's name which must reside in the same directory as the script being called. For convenience you may use use the `fetch-raspios_lite_armhf_latest` utility. I've took a few lines from `pishrink.sh` itself to ensure it's being called with root privileges. I've hard coded the image's name to a current version of Raspbian. The code has passed through `shellcheck` and code style is enforced with `shfmt`. When you're done with all the `gz`, `xz` and `log` files then `clean-artifacts` will remove them for you.
+Currently it doesn't need any command line parameters. You can provide the image's name which must reside in the same directory as the script, otherwise it will fetch an upstream image. I've took a few lines from `pishrink.sh` itself to ensure it's being called with root privileges and necessary tools are installed. When it's done all the `gz`, `xz` and `log` files will be removed. The code has passed through `shellcheck` and code style is enforced with `shfmt`.
 
 ## requirements
 
 - `bash` (approximately v4 or newer)
 - `curl` (must support `filename_effective`)
-- `lsb_release`, `uname`, `time` from GNU / Debian
-- `pishrink.sh` of PR #154 (with 12 + 2 permutations of compression options)
+- `pishrink.sh` of either `master` or PR#154 commit `4e90956eb1cd60f7e0ed33756d01d4d637c9b01c`
+
+## PiShrink versions supported
+
+While the former supports the flags `-azZ` and environment variables resulting in 4 + 2 permutations of compression options the latter carries three more flags `-cCe` resulting in 15 + 2 permutations. An Utility to download an install PiShrink to the system is also provided.
 
 ## usage
 
-- `./fetch-raspios_lite_armhf_latest`
-- `sudo ./test-pishrink`<image>
-- `sudo ./clean-artifacts`
+- `sudo ./install-pishrink <treeish> <target>` # installs 'master' into '/usr/local/bin/'
+- `sudo ./test-pishrink <image>` # downloads and extracts 'raspios_lite_armhf_latest'
 
 ## results
 

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+TREEISH="${1-master}"
+URL="https://github.com/Drewsif/PiShrink/raw/$TREEISH/pishrink.sh"
+LOADED=$(curl -sLO "$URL" -C - -w '%{filename_effective}')
+install -b "$LOADED" "${2-/usr/local/bin/}"
+mv "$LOADED" "$LOADED-$TREEISH" -f

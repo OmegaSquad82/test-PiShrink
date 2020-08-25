@@ -1,6 +1,9 @@
 #!/bin/bash
 set -eou pipefail
+CURRENT_DIR="$(pwd)"
 SCRIPTNAME="${0##*/}"
+DATETIME=$(date -Iseconds)
+
 function error() {
 	echo -n "$SCRIPTNAME: ERROR occured in line $1: "
 	shift
@@ -11,15 +14,46 @@ if ((EUID != 0)); then
 	exit 253
 fi
 
-MYNAME="${SCRIPTNAME%.*}"
-DATETIME=$(date -Iseconds)
-DATE=${DATETIME//:/-}
-IMG="${1:-2020-05-27-raspios-buster-lite-armhf.img}"
+# Check that what we need is installed
+REQUIRED_TOOLS="unzip zipinfo pishrink.sh lsb_release uname lspci free"
+for command in $REQUIRED_TOOLS; do
+	if ! command -v "$command" >/dev/null 2>&1; then
+		error $LINENO "$command is not installed."
+		exit 4
+	fi
+done
+
+echo "Checking Image"
+IMG="${1:-$(./fetch-raspios_lite_armhf_latest | tail -n 1)}"
 BASE="${IMG%%.img}"
-LOG=$MYNAME-$DATE-$BASE
-STATS=$LOG-results.md
-OPT='d'
-export TIME="\n#### %C\n\n- time measured: %Uuser %Ssystem %Eelapsed %PCPU"
+echo "Using $IMG"
+
+RESULTS="${SCRIPTNAME%.*}-${DATETIME//:/-}-$BASE-results.md"
+echo "Logging to $RESULTS"
+
+# Each run will be going through this
+# shellcheck disable=SC2012
+beforesize="$(ls -l "$IMG" | cut -d ' ' -f 5)"
+TIMEFORMAT="- time measured:	real %3lR	user %3lU	sys %3lS	CPU %P%%"
+function measure() {
+	CMD="pishrink.sh -d$1 $2.img $2-$1-$3.img"
+	echo "
+#### $CMD
+"
+	{ time $CMD >/dev/null; } 2>&1 | grep -v 'resize2fs'
+
+	output="$(grep 'Shrunk' pishrink.log)"
+	echo "- $output"
+	mv pishrink.log "$2-$1-$3.log"
+
+	archive="${output##*Shrunk }"
+	archive="${archive%% from*}"
+	# shellcheck disable=SC2012
+	aftersize="$(ls -l "$archive" | cut -d ' ' -f 5)"
+	echo "- Compression ratio: $(printf %.2f%% "$((10 ** 3 * 100 * aftersize / beforesize))e-3")"
+}
+
+# main program
 {
 	echo "# test results
 
@@ -29,27 +63,35 @@ export TIME="\n#### %C\n\n- time measured: %Uuser %Ssystem %Eelapsed %PCPU"
 ## sysinfo
 
 - Distribution: $(lsb_release -ds)
-- Kernel: $(uname -s)
-- Release: $(uname -r)
+- Kernel: $(uname -srm)
 - Version: $(uname -v)
-- Machine: $(uname -m)
+- Machine:$(lspci -s 00:00.0 | head -n1 | cut -d ':' -f 3)
+- Memory:
+$(LANGUAGE='en_EN' free -hw)
 
 ## $SCRIPTNAME
 
-### executions" | tee -a "$STATS"
+### executions"
 
-	options='zc z zC zac za zaC Zac Za ZaC Zaec Zae ZaeC' # if https://github.com/Drewsif/PiShrink/pull/154 merged
+	options='z za Z Za'
 	for run in $options; do
-		env time -ao "$STATS" pishrink.sh -"$OPT$run" "$BASE".img "$BASE-$run".img
-		[[ -f pishrink.log ]] && echo "- $(grep 'Shrunk' pishrink.log)" >>"$STATS" && mv pishrink.log "$BASE-$run".log
+		measure "$run" "$BASE" flag
 	done
+
+	# if https://github.com/Drewsif/PiShrink/pull/154
+	# Commit: 4e90956eb1cd60f7e0ed33756d01d4d637c9b01c
+	if grep -qE '(acC.*e.*zZ)' "$(command -v pishrink.sh)"; then
+		options='zc zac zC zaC Zc Zac ZC ZaC Zaec Zae ZaeC'
+		for run in $options; do
+			measure "$run" "$BASE" pr154
+		done
+	fi
 
 	# override implicit options
 	export PISHRINK_GZIP='-v1'
 	export PISHRINK_XZ='-fv0T0'
 	for run in 'z' 'Z'; do
-		env time -ao "$STATS" pishrink.sh -"$OPT$run" "$BASE".img "$BASE-$run"-env.img
-		[[ -f pishrink.log ]] && echo "- $(grep 'Shrunk' pishrink.log)" >>"$STATS" && mv pishrink.log "$BASE-$run"-env.log
+		measure "$run" "$BASE" env
 	done
 
 	echo "
@@ -59,5 +101,8 @@ export TIME="\n#### %C\n\n- time measured: %Uuser %Ssystem %Eelapsed %PCPU"
 \`\`\`bash
 $(ls -hlS "$BASE"-*.img.*)
 \`\`\`
-" | tee -a "$STATS"
-} &> >(tee -a "$LOG".log)
+"
+} &> >(tee -a "${CURRENT_DIR}/$RESULTS")
+
+echo "Removing artifacts"
+. clean-artifacts
