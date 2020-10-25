@@ -2,7 +2,7 @@
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.2.0
+    rev: v3.3.0
     hooks:
       - id: trailing-whitespace
       - id: mixed-line-ending
@@ -13,7 +13,7 @@ repos:
       - id: check-yaml
 
   - repo: https://github.com/prettier/prettier
-    rev: 2.1.0
+    rev: 2.1.2
     hooks:
       - id: prettier
 

@@ -15,7 +15,7 @@ if ((EUID != 0)); then
 fi
 
 # Check that what we need is installed
-REQUIRED_TOOLS="curl unzip zipinfo pishrink.sh lsb_release uname lspci free"
+REQUIRED_TOOLS="curl unzip zipinfo pishrink.sh gzip pigz xz lsb_release uname lspci free"
 for command in $REQUIRED_TOOLS; do
 	if ! command -v "$command" >/dev/null 2>&1; then
 		error $LINENO "$command is not installed."
